@@ -17,3 +17,16 @@
 #delete {
    display: inline;
 }
+
+#heading-center {
+   text-align: center;
+}
+
+#login-form input {
+   margin-left: 5px;
+}
+
+#login-form-container {
+   background-color: rgba(168, 203, 207, 0.37);
+   padding: 20px;
+}
