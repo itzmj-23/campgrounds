@@ -35,7 +35,7 @@ router.get("/login", function(req, res){
 
 // handling login logic route
 router.post("/login", passport.authenticate("local", { failureRedirect: "/login"}) , function(req, res){
-   req.flash("info", "Your are logged in! Thank you.");
+   req.flash("info", "You are logged in! Thank you.");
    res.redirect("/campgrounds");
 });
 
@@ -45,13 +45,5 @@ router.get("/logout", function(req, res){
    req.flash("success", "You are logged out!");
    res.redirect("/campgrounds");
 });
-
-// middleware
-function isLoggedIn(req, res, next){
-   if(req.isAuthenticated()){
-      return next();
-   }
-   res.redirect("/login");
-}
 
 module.exports = router;
