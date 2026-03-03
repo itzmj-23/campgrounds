@@ -1,49 +1,47 @@
 <!DOCTYPE html>
-<html>
-   <head>
-      <title>YelpCamp</title>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>YelpCamp</title>
+   <link rel="stylesheet" href="/stylesheets/main.css">
+   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body>
 
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-      <link rel="stylesheet" href="/stylesheets/main.css">
-   </head>
+<nav class="navbar" x-data="{ menuOpen: false }">
+   <div class="navbar-inner">
+      <a class="navbar-brand" href="/">&#9968; YelpCamp</a>
+      <button class="navbar-toggle" @click="menuOpen = !menuOpen" aria-label="Toggle navigation">&#9776;</button>
+      <ul class="navbar-links" :class="{ 'is-open': menuOpen }">
+         <% if(!currentUser){ %>
+            <li><a class="nav-link" href="/login">Login</a></li>
+            <li><a class="nav-link" href="/register">Sign Up</a></li>
+         <% } else { %>
+            <li><span class="nav-user">&#128100; <em><strong><%= currentUser.username %></strong></em></span></li>
+            <li><a class="nav-link" href="/logout">Logout</a></li>
+         <% } %>
+      </ul>
+   </div>
+</nav>
 
-   <body>
-
-      <nav class="navbar navbar-default">
-            <div class="container-fluid">
-            <div class="navbar-header">
-               <a class="navbar-brand" href="/"><i class="glyphicon glyphicon-tent"></i> YelpCamp</a>
-            </div>
-            <div class="collapse navbar-collapse">
-               <ul class="nav navbar-nav navbar-right">
-                  <% if(!currentUser){ %>
-                        <li><a href="/login"><i class="glyphicon glyphicon-user"></i> Login</a></li>
-                        <li><a href="/register"><i class="glyphicon glyphicon-plus-sign"></i> Signup</a></li>
-                  <% } else { %>
-                        <li><a><i class="glyphicon glyphicon-user"></i> Signed In As <em><strong><%= currentUser.username %></strong></em></a></li>
-                        <li><a href="/logout"><i class="glyphicon glyphicon-off"></i> Logout</a></li>
-                  <% } %>
-               </ul>
-            </div>
-         </div>
-      </nav>
-
-      <div class="container">
-            <% if(error && error.length > 0) { %>
-                  <div class="alert alert-danger" role="alert">
-                        <%= error %>
-                  </div>
-            <% } %>
-           <% if(success && success.length > 0) { %>
-                  <div class="alert alert-success" role="alert">
-                        <%= success %>
-                  </div>
-           <% } %>
-           <% if(info && info.length > 0) { %>
-            <div class="alert alert-info" role="alert">
-                  <%= info %>
-            </div>
-            <% } %>
-            
+<div class="alerts-wrapper">
+   <% if(error && error.length > 0){ %>
+      <div class="alert alert-danger" x-data="{ show: true }" x-show="show">
+         <span><%= error %></span>
+         <button class="alert-close" @click="show = false">&times;</button>
       </div>
-      
+   <% } %>
+   <% if(success && success.length > 0){ %>
+      <div class="alert alert-success" x-data="{ show: true }" x-show="show">
+         <span><%= success %></span>
+         <button class="alert-close" @click="show = false">&times;</button>
+      </div>
+   <% } %>
+   <% if(info && info.length > 0){ %>
+      <div class="alert alert-info" x-data="{ show: true }" x-show="show">
+         <span><%= info %></span>
+         <button class="alert-close" @click="show = false">&times;</button>
+      </div>
+   <% } %>
+</div>

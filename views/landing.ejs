@@ -1,37 +1,57 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>YelpCamp</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/stylesheets/landing.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js" type="text/javascript" async></script>
-    </head>
-    <body>
-    
-    <div class="container">
-        <% if(error && error.length > 0){ %>
-            <div class="alert alert-danger" role="alert">
-                <%= error %>
-            </div>
-        <% } %>
-        <% if(success && success.length > 0){ %>
-            <div class="alert alert-success" role="alert">
-                <%= success %>
-            </div>
-        <% } %>
-    </div>
-    
-    <div id="landing-header">
- 		<h1><i class="glyphicon glyphicon-tent"></i> Welcome to YelpCamp!</h1>
-		<a href="/campgrounds" class="btn btn-lg btn-success">View All Campgrounds</a>
-    </div>
-    
-    <ul class="slideshow">
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-    </ul>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>YelpCamp</title>
+   <link rel="stylesheet" href="/stylesheets/main.css">
+   <link rel="stylesheet" href="/stylesheets/landing.css">
+   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="landing-page">
+
+<nav class="navbar" x-data="{ menuOpen: false }">
+   <div class="navbar-inner">
+      <a class="navbar-brand" href="/">&#9968; YelpCamp</a>
+      <button class="navbar-toggle" @click="menuOpen = !menuOpen" aria-label="Toggle navigation">&#9776;</button>
+      <ul class="navbar-links" :class="{ 'is-open': menuOpen }">
+         <% if(!currentUser){ %>
+            <li><a class="nav-link" href="/login">Login</a></li>
+            <li><a class="nav-link" href="/register">Sign Up</a></li>
+         <% } else { %>
+            <li><span class="nav-user">&#128100; <em><strong><%= currentUser.username %></strong></em></span></li>
+            <li><a class="nav-link" href="/logout">Logout</a></li>
+         <% } %>
+      </ul>
+   </div>
+</nav>
+
+<div class="alerts-wrapper">
+   <% if(error && error.length > 0){ %>
+      <div class="alert alert-danger" x-data="{ show: true }" x-show="show">
+         <span><%= error %></span>
+         <button class="alert-close" @click="show = false">&times;</button>
+      </div>
+   <% } %>
+   <% if(success && success.length > 0){ %>
+      <div class="alert alert-success" x-data="{ show: true }" x-show="show">
+         <span><%= success %></span>
+         <button class="alert-close" @click="show = false">&times;</button>
+      </div>
+   <% } %>
+</div>
+
+<div id="landing-header">
+   <h1>&#9968; Welcome to YelpCamp!</h1>
+   <a href="/campgrounds" class="btn btn-success btn-lg">View All Campgrounds</a>
+</div>
+
+<ul class="slideshow">
+   <li></li>
+   <li></li>
+   <li></li>
+   <li></li>
+   <li></li>
+</ul>
 
 <% include partials/footer %>
